@@ -11,9 +11,10 @@ namespace MissionControl
         DateTime LaunchDate { get; }
         DateTime ReturnDate { get; }
         string SpaceShip { get; }
+        public int MissionLenght { get; }
 
         List<Astronaut> astronauts;
-        private int missionLenght;
+
 
         public Mission(string name, DateTime launchDate, DateTime returnDate, string spaceShip)
         {
@@ -23,7 +24,7 @@ namespace MissionControl
             SpaceShip = spaceShip;
             astronauts = new List<Astronaut>();
 
-            missionLenght = Convert.ToInt32(ReturnDate.Date - LaunchDate.Date);
+            MissionLenght = (int)((ReturnDate.Ticks - LaunchDate.Ticks)/(10000000L * 3600L * 24L));
         }
 
         public bool AddAstronautToMission(Astronaut astronaut)
@@ -51,11 +52,11 @@ namespace MissionControl
 
         public int CompareTo(Mission other)
         {
-            if(LaunchDate > other.LaunchDate)
+            if(LaunchDate > other.LaunchDate || MissionLenght > other.MissionLenght)
             {
                 return 1;
             }
-            else if(LaunchDate == other.LaunchDate)
+            else if(LaunchDate == other.LaunchDate || MissionLenght == other.MissionLenght)
             {
                 return 0;
             }
@@ -71,7 +72,7 @@ namespace MissionControl
         }
         public int GetMissionLenght()
         {
-            return missionLenght;
+            return MissionLenght;
         }
     }
 }

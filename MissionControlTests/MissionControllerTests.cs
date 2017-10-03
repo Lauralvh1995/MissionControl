@@ -14,44 +14,48 @@ namespace MissionControl.Tests
         MissionController mControl = new MissionController();
         Mission mission1 = new Mission("Apollo 11", new DateTime(1969, 7, 16), new DateTime(1969, 7, 24), "CSM Columbia - LM Eagle");
         Astronaut astronaut1 = new Astronaut("Neil Armstrong", "Male", "American");
-        
+
         [TestMethod()]
         public void AddMissionTest()
         {
-            Assert.AreEqual(mControl.AddMission(mission1), true);
-            Assert.AreEqual(mControl.AddMission(mission1), false);
+            Assert.AreEqual(true, mControl.AddMission(mission1));
+            Assert.AreEqual(false, mControl.AddMission(mission1));
         }
 
         [TestMethod()]
-        public void GetMissionHistoryTest()
+        public void GetMissionHistoryStringTest()
         {
             mission1.AddAstronautToMission(astronaut1);
 
-            Assert.AreEqual(mControl.GetMissionHistory(astronaut1), mission1.GetName(), "GetMissionHistory");
+            Assert.AreEqual(mControl.GetMissionHistoryString(astronaut1).First(), mission1.GetName(), "GetMissionHistory");
         }
 
         [TestMethod()]
         public void GetMissionByNameTest()
         {
-            Assert.Fail();
+            mControl.AddMission(mission1);
+            Assert.AreEqual(mission1, mControl.GetMissionByName("Apollo 11"));
         }
 
         [TestMethod()]
         public void GetAstronautByNameTest()
         {
-            Assert.Fail();
+            mControl.AddAstronaut(astronaut1);
+            Assert.AreEqual(astronaut1, mControl.GetAstronautByName("Neil Armstrong"));
         }
 
         [TestMethod()]
         public void GetLongestMissionTest()
         {
-            Assert.Fail();
+            mission1.AddAstronautToMission(astronaut1);
+            Assert.AreEqual("Apollo 11", mControl.GetLongestMission(astronaut1).GetName());
         }
 
         [TestMethod()]
         public void GetTotalDaysInSpaceTest()
         {
-            Assert.Fail();
+            mission1.AddAstronautToMission(astronaut1);
+            Assert.AreEqual(8, mControl.GetTotalDaysInSpace(astronaut1));
         }
 
         [TestMethod()]

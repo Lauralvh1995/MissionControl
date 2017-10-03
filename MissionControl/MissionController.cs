@@ -10,6 +10,12 @@ namespace MissionControl
         List<Mission> missions;
         List<Astronaut> possibleAstronauts;
 
+        public MissionController()
+        {
+            missions = new List<Mission>();
+            possibleAstronauts = new List<Astronaut>();
+        }
+
         public void SortMissions()
         {
             missions.Sort();
@@ -28,7 +34,7 @@ namespace MissionControl
             return true;
         }
 
-        public List<string> GetMissionHistory(Astronaut astronaut)
+        public List<string> GetMissionHistoryString(Astronaut astronaut)
         {
             List<string> missionNames = new List<string>();
             foreach(Mission mission in missions)
@@ -36,6 +42,19 @@ namespace MissionControl
                 if(mission.GetAstronauts().Contains(astronaut))
                 {
                     missionNames.Add(mission.GetName());
+                }
+            }
+            return missionNames;
+        }
+
+        public List<Mission> GetMissionHistory(Astronaut astronaut)
+        {
+            List<Mission> missionNames = new List<Mission>();
+            foreach (Mission mission in missions)
+            {
+                if (mission.GetAstronauts().Contains(astronaut))
+                {
+                    missionNames.Add(mission);
                 }
             }
             return missionNames;
@@ -65,9 +84,11 @@ namespace MissionControl
             return totalDays;
         }
 
-        public string GetLongestMission(Astronaut astronaut)
+        public Mission GetLongestMission(Astronaut astronaut)
         {
-            throw new NotImplementedException();
+            List<Mission> temp = GetMissionHistory(astronaut).OrderBy(mission => mission.GetMissionLenght()).ToList();
+
+            return temp.First();
         }
 
         public Astronaut GetAstronautByName(string name)
@@ -92,6 +113,19 @@ namespace MissionControl
                 }
             }
             return null;
+        }
+
+        public bool AddAstronaut(Astronaut astronaut)
+        {
+            foreach (Astronaut checkAstronaut in possibleAstronauts)
+            {
+                if (checkAstronaut.GetName() == astronaut.GetName())
+                {
+                    return false;
+                }
+            }
+            possibleAstronauts.Add(astronaut);
+            return true;
         }
     }
 }
