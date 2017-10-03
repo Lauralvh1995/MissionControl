@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MissionControl
 {
-    class Astronaut
+    public class Astronaut
     {
         string Name { get; }
         string Gender { get; }
