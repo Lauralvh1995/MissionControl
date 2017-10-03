@@ -46,12 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Astronaut.cs" />
+    <Compile Include="Mission.cs" />
     <Compile Include="MissionControlForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MissionControlForm.Designer.cs">
       <DependentUpon>MissionControlForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MissionController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MissionControlForm.resx">
