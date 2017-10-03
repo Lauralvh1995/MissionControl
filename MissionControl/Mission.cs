@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MissionControl
 {
-    public class Mission
+    public class Mission : IComparable<Mission>
     {
         string Name { get; }
         DateTime LaunchDate { get; }
@@ -13,6 +13,7 @@ namespace MissionControl
         string SpaceShip { get; }
 
         List<Astronaut> astronauts;
+        private int missionLenght;
 
         public Mission(string name, DateTime launchDate, DateTime returnDate, string spaceShip)
         {
@@ -21,6 +22,8 @@ namespace MissionControl
             ReturnDate = returnDate;
             SpaceShip = spaceShip;
             astronauts = new List<Astronaut>();
+
+            missionLenght = Convert.ToInt32(ReturnDate.Date - LaunchDate.Date);
         }
 
         public bool AddAstronautToMission(Astronaut astronaut)
@@ -44,6 +47,31 @@ namespace MissionControl
         public override string ToString()
         {
             return Name + " - Launch Date: " + LaunchDate.ToShortDateString() + " - Return Date: " + ReturnDate.ToShortDateString() + " - Space Ship: " + SpaceShip;
+        }
+
+        public int CompareTo(Mission other)
+        {
+            if(LaunchDate > other.LaunchDate)
+            {
+                return 1;
+            }
+            else if(LaunchDate == other.LaunchDate)
+            {
+                return 0;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        public IReadOnlyList<Astronaut> GetAstronauts()
+        {
+            return astronauts.AsReadOnly();
+        }
+        public int GetMissionLenght()
+        {
+            return missionLenght;
         }
     }
 }

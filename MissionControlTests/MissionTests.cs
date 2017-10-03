@@ -15,9 +15,11 @@ namespace MissionControl.Tests
         public void AddAstronautToMissionTest()
         {
             Mission mission1 = new Mission("Apollo 11", new DateTime(1969, 7, 16), new DateTime(1969, 7, 24), "CSM Columbia - LM Eagle");
+            Astronaut astronaut1 = new Astronaut("Neil Armstrong", "Male", "American");
 
-            Assert.AreEqual(true, mission1.AddAstronautToMission(new Astronaut("Neil Armstrong", "Male", "American")));
-            Assert.AreEqual(false, mission1.AddAstronautToMission(new Astronaut("Neil Armstrong", "Male", "American")));
+
+            Assert.AreEqual(mission1.AddAstronautToMission(astronaut1), true);
+            Assert.AreEqual(mission1.AddAstronautToMission(astronaut1), false);
         }
     }
 }
